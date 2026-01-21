@@ -3,14 +3,23 @@ import { StatCard } from './StatCard';
 import { StatusBreakdownChart } from '../Charts/StatusBreakdownChart';
 import { useApplications } from '../../hooks/useApplications';
 import { useSkills } from '../../hooks/useSkills';
+import { useAppContext } from '../../hooks/useAppContext';
+import { initializeDemoData } from '../../utils/mockData';
 import { Button } from '../Common/Button';
 
 export const Dashboard = ({ onNavigate }) => {
   const { applications, getApplicationStats } = useApplications();
   const { skills, getSkillStats } = useSkills();
+  const { dispatch } = useAppContext();
 
   const appStats = getApplicationStats();
   const skillStats = getSkillStats();
+  const hasNoData = appStats.total === 0 && skillStats.total === 0;
+
+  const handleLoadDemoData = () => {
+    const demoData = initializeDemoData();
+    dispatch({ type: 'LOAD_STATE', payload: demoData });
+  };
 
   const chartData = [
     { name: 'applied', value: appStats.applied },
@@ -29,13 +38,24 @@ export const Dashboard = ({ onNavigate }) => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Welcome Section */}
-      <div className="mb-8">
-        <h2 className="text-3xl font-bold text-primary-900 mb-2">
-          Welcome Back!
-        </h2>
-        <p className="text-primary-600">
-          Track your internship journey and monitor your skill growth
-        </p>
+      <div className="mb-8 flex justify-between items-start">
+        <div>
+          <h2 className="text-3xl font-bold text-primary-900 mb-2">
+            Welcome Back!
+          </h2>
+          <p className="text-primary-600">
+            Track your internship journey and monitor your skill growth
+          </p>
+        </div>
+        {hasNoData && (
+          <Button
+            onClick={handleLoadDemoData}
+            variant="secondary"
+            className="whitespace-nowrap"
+          >
+            Load Demo Data
+          </Button>
+        )}
       </div>
 
       {/* Stats Grid */}
