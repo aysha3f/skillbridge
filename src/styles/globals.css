@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  @apply scroll-smooth;
+}
+
+html {
+  @apply scroll-smooth;
+}
+
+body {
+  @apply bg-primary-50 text-primary-900 font-sans;
+  min-height: 100vh;
+}
+
+/* Utility classes */
+@layer components {
+  .btn-primary {
+    @apply px-4 py-2 bg-secondary text-white rounded-lg font-medium hover:bg-blue-600 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply px-4 py-2 bg-primary-200 text-primary-900 rounded-lg font-medium hover:bg-primary-300 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-ghost {
+    @apply px-4 py-2 text-secondary hover:bg-secondary/10 rounded-lg font-medium transition-colors duration-200;
+  }
+
+  .card {
+    @apply bg-white rounded-lg shadow-md p-6 border border-primary-100 transition-shadow duration-200 hover:shadow-lg;
+  }
+
+  .input-base {
+    @apply w-full px-3 py-2 border border-primary-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent bg-white text-primary-900;
+  }
+
+  .label-base {
+    @apply block text-sm font-medium text-primary-700 mb-2;
+  }
+
+  .badge {
+    @apply inline-block px-2 py-1 bg-secondary/10 text-secondary rounded text-sm font-medium;
+  }
+
+  .badge-success {
+    @apply inline-block px-2 py-1 bg-accent/10 text-accent rounded text-sm font-medium;
+  }
+
+  .badge-warning {
+    @apply inline-block px-2 py-1 bg-warning/10 text-warning rounded text-sm font-medium;
+  }
+
+  .badge-danger {
+    @apply inline-block px-2 py-1 bg-danger/10 text-danger rounded text-sm font-medium;
+  }
+}
+
+/* Animations */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@layer utilities {
+  .animate-slideIn {
+    animation: slideIn 0.2s ease-out;
+  }
+}
